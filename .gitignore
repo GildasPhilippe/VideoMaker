@@ -22,3 +22,8 @@ htmlcov/
 .coverage
 .coverage.*
 *,cover
+
+
+# Database
+
+db/mysql

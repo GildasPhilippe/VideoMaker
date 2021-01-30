@@ -11,22 +11,29 @@
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.css">
     <title>React App</title>
 
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+
     <h1>Hello world</h1>
 
     <div id="test-div"></div>
+    <br><br>
+
+
+    <h1>File Upload</h1>
+    <form action="http://localhost:5001/videos/" class="dropzone">
+      <input type="hidden" name="session-id" value="my5678super56testide543secret098" />
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
+  
 
 
     <script>
-      //const url = 'http://0.0.0.0:8080/'
       const url = 'http://localhost:5001/'
-
-      
-
       var request = new XMLHttpRequest();
       request.open('GET', url, true);
       request.responseType = "json"
