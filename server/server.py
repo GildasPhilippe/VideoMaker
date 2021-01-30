@@ -1,13 +1,8 @@
 from datetime import datetime, timezone
-import imghdr
 import logging
-import os
-import re
-
-from flask import Flask, request, send_from_directory
-from flask_restful import Resource, Api
+from flask import Flask, send_from_directory
+from flask_restful import Api
 from flask_cors import CORS
-from werkzeug.utils import secure_filename
 
 from ressources import HelloWorld, Videos
 

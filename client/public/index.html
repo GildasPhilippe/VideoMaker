@@ -26,7 +26,7 @@
 
     <h1>File Upload</h1>
     <form action="http://localhost:5001/videos/" class="dropzone">
-      <input type="hidden" name="session-id" value="my5678super56testide543secret098" />
+      <input type="hidden" name="session-id" value="my5678super56testide543secret098my5678super56testide543secret098" />
     </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
   
@@ -39,7 +39,6 @@
       request.responseType = "json"
       request.onload = function() {
         if (this.status >= 200 && this.status < 400) {
-          console.log(this)
           document.getElementById("test-div").innerHTML = this.response.data
         } else {
           alert('Error ' + this.status)

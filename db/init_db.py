@@ -12,6 +12,11 @@ meta = MetaData()
 logging.basicConfig(level=logging.INFO)
 
 
+engine.execute("drop table session")
+engine.execute("drop table project")
+engine.execute("drop table video_stem")
+engine.execute("drop table video_result")
+
 session = Table(
    'session', meta,
    Column('id', String(100), primary_key=True),
@@ -35,6 +40,7 @@ video_stem = Table(
    Column('id', Integer, primary_key=True, autoincrement=True),
    Column('session_id', String(100), index=True),
    Column('filename', String(100)),
+   Column('file_hash', String(100)),
    Column('url', String(255)),
    Column('size', Integer),
    Column('duration', Integer),
