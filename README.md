@@ -11,8 +11,8 @@ A web app that concatenate videos with titles
     - Id generation
     - Upload view
 - Server
-    - File name, size, format assertion
-    - Adding to db
+    - ~~File name, size, format assertion~~
+    - ~~Adding to db~~
     - Return file list
         
 #### Edit
@@ -27,9 +27,13 @@ A web app that concatenate videos with titles
 
 #### Process & Result
 - Server
-
+    - Save Data
+    - Push to rabbit mq
+    - Load from rabbit mq
+    - Process
+    - Push result
 - Client
-    - Result view pushel
+    - Result view pushed
     
 ## Db connection
 
@@ -52,3 +56,5 @@ docker-compose stop
 
 ## Improvements
 - Logging utils
+- Security: users, password, env variables
+- Auto delete cron jobs

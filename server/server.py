@@ -4,7 +4,7 @@ from flask import Flask, send_from_directory
 from flask_restful import Api
 from flask_cors import CORS
 
-from ressources import HelloWorld, Videos
+from ressources import HelloWorld, Processor, Videos
 
 
 app = Flask(__name__)
@@ -12,7 +12,7 @@ CORS(app, resources={r"/*": {"origins": ["http://localhost:3001/*"]}})
 api = Api(app)
 
 logging.basicConfig(
-    filename=f'./logs/logs-{datetime.now(timezone.utc).strftime("%Y-%m-%d")}.log',
+    filename=f'./logs/logs-server-{datetime.now(timezone.utc).strftime("%Y-%m-%d")}.log',
     level=logging.INFO,
     filemode='a'
 )
@@ -35,6 +35,7 @@ def upload(filename):
 
 api.add_resource(HelloWorld, '/')
 api.add_resource(Videos, '/videos/')
+api.add_resource(Processor, '/process/<string:session_id>')
 
 
 if __name__ == '__main__':
