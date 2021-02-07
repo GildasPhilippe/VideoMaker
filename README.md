@@ -55,6 +55,7 @@ docker-compose stop
 
 
 ## Improvements
-- Logging utils
+- Logging utils (logger)
+- Shared directory for logs (each service in a sub directory)
 - Security: users, password, env variables
 - Auto delete cron jobs
