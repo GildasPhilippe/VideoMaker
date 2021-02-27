@@ -8,6 +8,7 @@ from utils.queue_utils import add_session_id_to_queue
 
 
 class Processor(Resource):
+
     def put(self, session_id):
         if not check_session_id_integrity(session_id):
             return {"data": "Unauthorized session"}, 400

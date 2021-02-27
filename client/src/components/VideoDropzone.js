@@ -1,4 +1,5 @@
-const Dropzone = () => {
+
+const VideoDropzone = ({id}) => {
     return (
         <div className="container">
             <h1 className="title">File Upload</h1>
@@ -6,11 +7,10 @@ const Dropzone = () => {
                 <input 
                     type="hidden" 
                     name="session-id" 
-                    value="my5678super56testide543secret098my5678super56testide543secret098" 
+                    value={id}
                 />
             </form>
         </div>
     )
   }
-  
-export default Dropzone;
+export default VideoDropzone;

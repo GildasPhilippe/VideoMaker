@@ -27,3 +27,10 @@ htmlcov/
 # Database
 
 db/mysql
+
+
+# files
+client/public/tonus.mp4
+client/public/thumbnail.png
+notebooks/
+

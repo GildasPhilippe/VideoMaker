@@ -5,8 +5,8 @@ services:
   client:
     build: ./client
     volumes:
-      - './client/src:/app/src'
-      - './client/public:/app/public'
+      - ./client/src:/app/src
+      - ./uploads:/app/public/uploads
     ports:
       - 3001:3000
     depends_on:
@@ -15,20 +15,21 @@ services:
   server:
     build: ./server
     volumes:
-      - ./server:/usr/src/app
+      - ./server:/app
+      - ./uploads:/app/uploads
     ports:
       - 5001:8080
     depends_on:
       - db
-      - rabbitmq
+      #- rabbitmq
 
-  processor:
-    build: ./processor
-    volumes:
-      - ./processor:/usr/src/app
-    depends_on:
-      - server
-      - rabbitmq
+  #processor:
+  #  build: ./processor
+  #  volumes:
+  #    - ./processor:/usr/src/app
+  #  depends_on:
+  #    - server
+  #    - rabbitmq
 
   db:
     image: mysql:8.0.23
@@ -43,29 +44,28 @@ services:
     volumes:
       - ./db/mysql:/var/lib/mysql
 
-  phpmyadmin:
-    depends_on:
-      - db
-    image: phpmyadmin/phpmyadmin
-    restart: always
-    ports:
-      - 8080:80
-    environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: password
+  #phpmyadmin:
+  #  depends_on:
+  #    - db:
+  #  image: phpmyadmin/phpmyadmin
+  #  restart: always
+  #  ports:
+  #    - 8080:80
+  #  environment:
+  #    PMA_HOST: db
+  #    MYSQL_ROOT_PASSWORD: password
 
-  rabbitmq:
-    image: rabbitmq:3.8.11-management
-    environment:
-      RABBITMQ_ERLANG_COOKIE: mysupersecretcookie
-      RABBITMQ_DEFAULT_USER: user
-      RABBITMQ_DEFAULT_PASS: password
-    volumes:
-      - ./queue/rabbitmq:/var/lib/rabbitmq
-      #- ./queue/rabbitmq/etc/:/etc/rabbitmq/
-      #- ./queue/rabbitmq/data/:/var/lib/rabbitmq/
-      #- ./queue/rabbitmq/logs/:/var/log/rabbitmq/
-    ports:
-      - 5672:5672
-      - 15672:15672
-
+  #rabbitmq:
+  #  image: rabbitmq:3.8.11-management
+  #  environment:
+  #    RABBITMQ_ERLANG_COOKIE: mysupersecretcookie
+  #    RABBITMQ_DEFAULT_USER: user
+  #    RABBITMQ_DEFAULT_PASS: password
+  #  volumes:
+  #    - ./queue/rabbitmq:/var/lib/rabbitmq
+  #    #- ./queue/rabbitmq/etc/:/etc/rabbitmq/
+  #    #- ./queue/rabbitmq/data/:/var/lib/rabbitmq/
+  #    #- ./queue/rabbitmq/logs/:/var/log/rabbitmq/
+  #  ports:
+  #    - 5672:5672
+  #    - 15672:15672

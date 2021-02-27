@@ -5,15 +5,14 @@ from flask_restful import Resource
 from werkzeug.utils import secure_filename
 
 from utils.session_utils import check_session_id_integrity, save_session_id
-from utils.file_utils import is_valid_file, save_file
+from utils.file_utils import is_valid_file, upload_video
 
 
-MAX_CONTENT_LENGTH = 2 * 1024 * 1024
 UPLOAD_EXTENSIONS = ['.jpg', '.png', '.gif']
-UPLOAD_PATH = 'uploads'
 
 
 class Videos(Resource):
+
     def post(self):
         try:
             session_id = request.form['session-id']
@@ -28,7 +27,7 @@ class Videos(Resource):
             filename = secure_filename(uploaded_file.filename)
             if not is_valid_file(filename, uploaded_file):
                 return "Invalid file", 400
-            save_file(session_id, filename, uploaded_file, UPLOAD_PATH)
+            upload_video(session_id, filename, uploaded_file)
             return 'Videos have been well uploaded', 204
 
         except Exception as e:

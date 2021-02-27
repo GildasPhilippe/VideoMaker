@@ -18,14 +18,14 @@ logging.basicConfig(
 )
 
 
-app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 400 * 1024 * 1024
 app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.gif']
 app.config['UPLOAD_PATH'] = 'uploads'
 
 
 @app.errorhandler(413)
-def too_large(e):
-    return "File is too large", 413
+def request_entity_too_large(error):
+    return 'File is too Large', 413
 
 
 @app.route('/uploads/<filename>')
