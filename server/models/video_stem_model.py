@@ -1,7 +1,12 @@
 from datetime import datetime, timezone
 import logging
+
 import pandas as pd
+
 from utils.db_utils import get_engine
+
+
+DATE_COLUMNS = ["video_date", "date_created", "date_updated"]
 
 
 def insert_video_stem(session_id, filename, file_hash, video_url, thumbnail_url, metadata):
@@ -30,3 +35,20 @@ def insert_video_stem(session_id, filename, file_hash, video_url, thumbnail_url,
     data.to_sql("video_stem", engine, if_exists="append", index=False)
     logging.info(f"Created session {session_id}")
     return data
+
+
+def get_session_videos(session_id):
+    query = f"select * from video_stem where session_id = '{session_id}'"
+    return get_video_stem_data(query)
+
+
+def get_video(session_id, video_hash):
+    query = f"select * from video_stem where session_id = '{session_id}' and file_hash = '{video_hash}'"
+    return get_video_stem_data(query)
+
+
+def get_video_stem_data(query):
+    engine = get_engine()
+    data = pd.read_sql(query, engine)
+    data[DATE_COLUMNS] = data[DATE_COLUMNS].astype(str)
+    return data.to_dict(orient="records")

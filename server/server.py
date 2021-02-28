@@ -34,7 +34,7 @@ def upload(filename):
 
 
 api.add_resource(HelloWorld, '/')
-api.add_resource(Videos, '/videos/')
+api.add_resource(Videos, '/videos/', '/videos/<string:session_id>/<string:video_id>')
 api.add_resource(Processor, '/process/<string:session_id>')
 
 

@@ -1,17 +1,16 @@
 import logging
 import re
-from datetime import datetime, timezone
 
 import pandas as pd
 
 from .db_utils import get_engine
 
 
-SESSION_ID_REGEX = re.compile(r'^[A-z0-9]{64}$')
+ID_REGEX = re.compile(r'^[A-z0-9]{64}$')
 
 
-def check_session_id_integrity(session_id):
-    return SESSION_ID_REGEX.match(session_id)
+def check_id_integrity(resource_id):
+    return ID_REGEX.match(resource_id)
 
 
 def save_session_id(session_id):

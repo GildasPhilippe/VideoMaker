@@ -4,7 +4,8 @@ from flask import request
 from flask_restful import Resource
 from werkzeug.utils import secure_filename
 
-from utils.session_utils import check_session_id_integrity, save_session_id
+from models.video_stem_model import get_session_videos, get_video
+from utils.session_utils import check_id_integrity, save_session_id
 from utils.file_utils import is_valid_file, upload_video
 
 
@@ -16,7 +17,7 @@ class Videos(Resource):
     def post(self):
         try:
             session_id = request.form['session-id']
-            if not check_session_id_integrity(session_id):
+            if not check_id_integrity(session_id):
                 return 'Unauthorized session id', 400
             save_session_id(session_id)
             if 'file' not in request.files:
@@ -33,3 +34,21 @@ class Videos(Resource):
         except Exception as e:
             logging.error(str(e))
             return 'An internal error occurred', 500
+
+    def get(self, session_id, video_id):
+        if not check_id_integrity(session_id):
+            return {'message': 'Unauthorized session id'}, 400
+        if video_id == "all":
+            data = get_session_videos(session_id)
+            if not len(data):
+                return {'message': f'No video for session id {session_id}'}, 404
+            else:
+                print(data)
+                return {"resources": data}
+        if not check_id_integrity(video_id):
+            data = get_video(session_id, video_id)
+            if not len(data):
+                return {'message': 'Video not found'}, 404
+            else:
+                print(data)
+                return {"resources": data}

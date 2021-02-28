@@ -1,7 +1,5 @@
 from datetime import datetime, timezone
 import logging
-import os
-import sys
 import time
 
 import pika
