@@ -21,6 +21,7 @@ def insert_video_stem(session_id, filename, file_hash, video_url, thumbnail_url,
         'video_url': video_url,
         'thumbnail_url': thumbnail_url,
         'size': None,
+        'title': None,
         'video_date': pd.to_datetime(metadata.get("video_date")),
         'duration': duration,
         'start_at': 0,
@@ -33,8 +34,9 @@ def insert_video_stem(session_id, filename, file_hash, video_url, thumbnail_url,
         'date_updated': upload_date,
     }])
     data.to_sql("video_stem", engine, if_exists="append", index=False)
-    logging.info(f"Created session {session_id}")
-    return data
+    logging.info(f"Inserted video_stem {file_hash}")
+    data[DATE_COLUMNS] = data[DATE_COLUMNS].astype(str)
+    return data.to_dict(orient="records")[0]
 
 
 def get_session_videos(session_id):

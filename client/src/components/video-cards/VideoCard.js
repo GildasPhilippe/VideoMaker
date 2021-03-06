@@ -2,9 +2,9 @@ import Thumbnail from "./Thumbnail";
 import TimeSlider from "./TimeSlider";
 
 const VideoCard = ({thumbnail_url, filename, title, location, start_at, end_at, video_date}) => {
-    console.log("title = " + title)
-    console.log("location = " + location)
-    console.log("video_date = " + video_date)
+    // console.log("title = " + title)
+    // console.log("location = " + location)
+    // console.log("video_date = " + video_date)
     return (
         <article className="post">
             <div className="columns">
@@ -53,12 +53,5 @@ const VideoCard = ({thumbnail_url, filename, title, location, start_at, end_at, 
         </article>
     )
 };
-
-/*
-- date
-- titre
-- lieu
-- début + fin
-*/
 
 export default VideoCard;

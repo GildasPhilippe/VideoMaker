@@ -40,12 +40,12 @@ def upload_video(session_id, filename, uploaded_file):
     if extension == "mp4":
         thumbnail_url, is_vertical = generate_thumbnail(video_url, thumbnail_dir_name, file_hash)
         metadata = extract_metadata(video_url, is_vertical)
-        insert_video_stem(session_id, filename, file_hash, video_url, thumbnail_url, metadata)
+        response_data = insert_video_stem(session_id, filename, file_hash, video_url, thumbnail_url, metadata)
     else:  # FOR DEV PURPOSES:
         import pandas as pd
-        insert_video_stem(session_id, filename, file_hash, video_url, "thumbnail_url", {
+        response_data = insert_video_stem(session_id, filename, file_hash, video_url, "thumbnail_url", {
             "duration": 0, "is_vertical": False, "date": pd.to_datetime("2020-01-01")})
-    return video_url
+    return response_data
 
 
 def extract_metadata(filename, is_vertical):

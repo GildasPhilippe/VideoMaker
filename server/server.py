@@ -8,7 +8,7 @@ from ressources import HelloWorld, Processor, Videos
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["http://localhost:3001/*"]}})
+CORS(app, resources={r"/videos/*": {"origins": ["http://localhost:3001/*"]}})
 api = Api(app)
 
 logging.basicConfig(
@@ -34,7 +34,7 @@ def upload(filename):
 
 
 api.add_resource(HelloWorld, '/')
-api.add_resource(Videos, '/videos/', '/videos/<string:session_id>/<string:video_id>')
+api.add_resource(Videos, '/videos//<string:session_id>', '/videos/<string:session_id>/<string:video_id>')
 api.add_resource(Processor, '/process/<string:session_id>')
 
 

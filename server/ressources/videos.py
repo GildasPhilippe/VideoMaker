@@ -14,26 +14,25 @@ UPLOAD_EXTENSIONS = ['.jpg', '.png', '.gif']
 
 class Videos(Resource):
 
-    def post(self):
+    def post(self, session_id):
         try:
-            session_id = request.form['session-id']
             if not check_id_integrity(session_id):
-                return 'Unauthorized session id', 400
+                return {'message': 'Unauthorized session id'}, 400
             save_session_id(session_id)
             if 'file' not in request.files:
-                return 'No file has been sent', 400
+                return {'message': 'No file has been sent'}, 400
             uploaded_file = request.files['file']
             if uploaded_file.filename == '':
-                return 'No selected file', 400
+                return {'message': 'No selected file'}, 400
             filename = secure_filename(uploaded_file.filename)
             if not is_valid_file(filename, uploaded_file):
-                return "Invalid file", 400
-            upload_video(session_id, filename, uploaded_file)
-            return 'Videos have been well uploaded', 204
+                return {'message': "Invalid file"}, 400
+            response_data = upload_video(session_id, filename, uploaded_file)
+            return {'message': 'Video have been well uploaded', "data": response_data}, 201
 
         except Exception as e:
             logging.error(str(e))
-            return 'An internal error occurred', 500
+            return {'message': 'An internal error occurred'}, 500
 
     def get(self, session_id, video_id):
         if not check_id_integrity(session_id):
@@ -43,12 +42,11 @@ class Videos(Resource):
             if not len(data):
                 return {'message': f'No video for session id {session_id}'}, 404
             else:
-                print(data)
-                return {"resources": data}
-        if not check_id_integrity(video_id):
+                return {"videos": data}
+        if check_id_integrity(video_id):
             data = get_video(session_id, video_id)
             if not len(data):
                 return {'message': 'Video not found'}, 404
             else:
-                print(data)
-                return {"resources": data}
+                return {"videos": data}, 200
+        return {'message': 'Video not found'}, 404

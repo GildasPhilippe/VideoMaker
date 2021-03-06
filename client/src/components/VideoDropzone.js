@@ -1,16 +1,41 @@
+import Dropzone from 'react-dropzone-uploader';
 
-const VideoDropzone = ({id}) => {
+
+const VideoDropzone = ({session_id}) => {
+    const getUploadParams = () => {
+        return { url: `http://localhost:5001/videos/${session_id}` }
+    }
+    
+    const handleChangeStatus = ({ meta, xhr }, status) => {
+        if (status === 'done'){
+            let response = JSON.parse(xhr.response);
+            console.log(response.data)
+            const video_id = response.data.file_hash;
+            console.log(video_id);
+            let event = new CustomEvent('video-upload', { detail:{'video_id': video_id }});
+            console.log("dispatching event")
+            document.dispatchEvent(event);
+        }  
+    }
+    
+    const handleSubmit = (files, allFiles) => {
+        console.log("Files upladed : " + files)
+    }
+    
     return (
         <div className="container">
-            <h1 className="title">File Upload</h1>
-            <form action="http://localhost:5001/videos/" className="dropzone">
-                <input 
-                    type="hidden" 
-                    name="session-id" 
-                    value={id}
+            <div className="card">
+                <Dropzone
+                    getUploadParams={getUploadParams}
+                    onChangeStatus={handleChangeStatus}
+                    onSubmit={handleSubmit}
+                    styles={{ dropzone: { minHeight: 200, maxHeight: 250 } }}
+                    accept="image/*,audio/*,video/*"
+                    SubmitButtonComponent={null}
                 />
-            </form>
+            </div>
         </div>
     )
-  }
+  };
+
 export default VideoDropzone;

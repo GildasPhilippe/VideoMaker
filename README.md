@@ -48,7 +48,7 @@ docker-compose up -d
 docker-compose restart server
 docker-compose stop
 ```
-    
+
 ## Documentations
 - [Flask file upload](https://blog.miguelgrinberg.com/post/handling-file-uploads-with-flask)
 - [React Dockerisation](https://xiaolishen.medium.com/develop-in-docker-a-node-backend-and-a-react-front-end-talking-to-each-other-5c522156f634)
@@ -59,3 +59,12 @@ docker-compose stop
 - Shared directory for logs (each service in a sub directory)
 - Security: users, password, env variables
 - Auto delete cron jobs
+
+
+
+## Designs
+- Used:
+  - https://bulmatemplates.github.io/bulma-templates/templates/forum.html#
+  - https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/forum.html
+- Potentially: 
+  - https://jamstackthemes.dev/theme/jekyll-bulma-theme/
