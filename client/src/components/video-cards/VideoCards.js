@@ -1,24 +1,18 @@
 import VideoCard from "./VideoCard";
 
 
-const VideoCards = ({videos}) => {
+const VideoCards = ({videos}) => {    
     return (
-        <>
+        <div id="video-cards">
             {
                 videos.map((video, index) => (
                     <VideoCard 
-                        thumbnail_url={video.thumbnail_url}
-                        filename={video.filename}
-                        title={video.title}
-                        location={video.location}
-                        start_at={video.start_at}
-                        end_at={video.end_at}
-                        video_date={video.video_date}
-                        key={video.id}
+                        video={video}
+                        key={`${video.id}-${index}`}
                     />
                 ))
             }
-        </>
+        </div>
     )
 };
 

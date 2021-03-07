@@ -46,6 +46,7 @@ video_stem = Table(
    Column('size', Integer),
    Column('title', String(255)),
    Column('video_date', DateTime),
+   Column('location', String(255)),
    Column('duration', Float),
    Column('start_at', Integer),
    Column('end_at', Integer),

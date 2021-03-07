@@ -6,7 +6,7 @@ const VideoDropzone = ({session_id}) => {
         return { url: `http://localhost:5001/videos/${session_id}` }
     }
     
-    const handleChangeStatus = ({ meta, xhr }, status) => {
+    const handleChangeStatus = ({ xhr }, status) => {
         if (status === 'done'){
             let response = JSON.parse(xhr.response);
             console.log(response.data)

@@ -1,10 +1,11 @@
+import json
 import logging
 
 from flask import request
 from flask_restful import Resource
 from werkzeug.utils import secure_filename
 
-from models.video_stem_model import get_session_videos, get_video
+from models.video_stem_model import get_session_videos, get_video, update_video
 from utils.session_utils import check_id_integrity, save_session_id
 from utils.file_utils import is_valid_file, upload_video
 
@@ -35,18 +36,37 @@ class Videos(Resource):
             return {'message': 'An internal error occurred'}, 500
 
     def get(self, session_id, video_id):
-        if not check_id_integrity(session_id):
-            return {'message': 'Unauthorized session id'}, 400
-        if video_id == "all":
-            data = get_session_videos(session_id)
-            if not len(data):
-                return {'message': f'No video for session id {session_id}'}, 404
-            else:
-                return {"videos": data}
-        if check_id_integrity(video_id):
-            data = get_video(session_id, video_id)
-            if not len(data):
-                return {'message': 'Video not found'}, 404
-            else:
-                return {"videos": data}, 200
-        return {'message': 'Video not found'}, 404
+        try:
+            if not check_id_integrity(session_id):
+                return {'message': 'Unauthorized session id'}, 400
+            if video_id == "all":
+                data = get_session_videos(session_id)
+                if not len(data):
+                    return {'message': f'No video for session id {session_id}'}, 404
+                else:
+                    return {"videos": data}
+            if check_id_integrity(video_id):
+                data = get_video(session_id, video_id)
+                if not len(data):
+                    return {'message': 'Video not found'}, 404
+                else:
+                    return {"videos": data}, 200
+            return {'message': 'Video not found'}, 404
+
+        except Exception as e:
+            logging.error(str(e))
+            return {'message': 'An internal error occurred'}, 500
+
+    def put(self, session_id, video_id):
+        try:
+            if not check_id_integrity(session_id):
+                return {'message': 'Unauthorized session id'}, 400
+            if not check_id_integrity(video_id):
+                logging.warning("video_id = ", video_id)
+                return {'message': 'Wrong video id'}, 400
+            update_video(session_id, video_id, request.json)
+            return {'message': 'Video informations have been updated'}, 200
+
+        except Exception as e:
+            logging.error(str(e))
+            return {'message': 'An internal error occurred'}, 500

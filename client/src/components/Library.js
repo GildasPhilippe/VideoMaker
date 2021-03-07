@@ -4,7 +4,6 @@ import VideoCards from './video-cards/VideoCards';
 
 
 const Library = ({session_id}) => {
-    const [showAddVideo, setShowVideo] = useState(false)
     const [videos, setVideos] = useState([])
 
     const getVideos = async () => {
@@ -16,13 +15,8 @@ const Library = ({session_id}) => {
         getVideos()
     }, [])
 
-    const addVideo = async (video_id) => {
-        getVideos();
-    }
-
     document.addEventListener('video-upload', function (e) {
-        console.log("Hello from Library");
-        addVideo(e.detail.video_id)
+        getVideos();
     });
 
     return (

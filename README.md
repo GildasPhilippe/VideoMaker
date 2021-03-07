@@ -9,25 +9,25 @@ A web app that concatenate videos with titles
 - Client
     - Index view
     - Id generation
-    - Upload view
+    - ~~Upload view~~
 - Server
     - ~~File name, size, format assertion~~
     - ~~Adding to db~~
-    - Return file list
+    - ~~Return file list~~
         
 #### Edit
 - Client
-    - Table view
-    - Video previews
+    - ~~Table view~~
+    - ~~Video previews~~
     - Drag and drop order
 - Client & Server
-    - Auto save
+    - ~~Auto save~~
     - Delete video
-    - Append video
+    - ~~Append video~~
 
 #### Process & Result
 - Server
-    - Save Data
+    - ~~Save Data~~
     - Push to rabbit mq
     - Load from rabbit mq
     - Process

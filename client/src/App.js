@@ -26,7 +26,7 @@ function App() {
           <h1 className="title">No id founded</h1>
           <p>
           <Link 
-            to='/videos/my5678super56testide543secret098my5678super56testide543secret999' 
+            to='/videos/my5678super56testide543secret098my5678super56testide543s' 
             className="navbar-item">
               Go to example
           </Link>

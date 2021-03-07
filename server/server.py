@@ -11,11 +11,11 @@ app = Flask(__name__)
 CORS(app, resources={r"/videos/*": {"origins": ["http://localhost:3001/*"]}})
 api = Api(app)
 
-logging.basicConfig(
-    filename=f'./logs/logs-server-{datetime.now(timezone.utc).strftime("%Y-%m-%d")}.log',
-    level=logging.INFO,
-    filemode='a'
-)
+#logging.basicConfig(
+#    filename=f'./logs/logs-server-{datetime.now(timezone.utc).strftime("%Y-%m-%d")}.log',
+#    level=logging.INFO,
+#    filemode='a'
+#)
 
 
 app.config['MAX_CONTENT_LENGTH'] = 400 * 1024 * 1024
@@ -34,7 +34,7 @@ def upload(filename):
 
 
 api.add_resource(HelloWorld, '/')
-api.add_resource(Videos, '/videos//<string:session_id>', '/videos/<string:session_id>/<string:video_id>')
+api.add_resource(Videos, '/videos/<string:session_id>', '/videos/<string:session_id>/<string:video_id>')
 api.add_resource(Processor, '/process/<string:session_id>')
 
 
